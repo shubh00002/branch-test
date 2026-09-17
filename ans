@@ -112,3 +112,50 @@ def lambda_handler(event, context):
         'statusCode': 200,
         'body': json.dumps('Processed S3 upload event successfully!')
     }
+
+
+
+
+
+GIT CLONE
+Go to GitHub, click the + icon in the top-right corner, select New repository, enter a repository name, and click Create repository.
+git clone <repository-url>
+cd <repository-name>
+git add .
+git commit -m "Initial commit"
+git push origin main
+touch index.html
+git status
+
+
+
+
+GIT MERGE
+In GitHub, create a new repo named branch-test
+cd    ~
+git clone https://github.com/newdelthis/branch-test.git
+cd    branch-test 
+nano    hello.py
+git     add      .
+git      commit       -m        “Branch test – First commit”
+git     push           origin             main
+git   checkout    -b       d-1
+git   checkout    -b       d-2
+git   checkout         d-1
+nano   hello.py   Edit the line and add a line
+git    add     hello.py
+git   commit   -m   "Developer-1 hello.py"
+git   checkout         d-2
+nano   hello.py   Edit the line and add a line
+git    add     hello.py   
+git   commit   -m   "Developer-2 hello.py"
+git   merge   d-1      ERROR!
+nano hello.py    and resolve conflicts
+git   add   hello.py
+git   commit -m “Conflict handled”
+git   merge   d-1        OK!
+git   checkout   main
+git   merge   d-2
+git   push  origin   main
+git   branch   -d   d-1
+git   branch   -d   d-2
