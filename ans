@@ -1,3 +1,4 @@
+EC2
 #!/bin/bash
 
 # Update package list
@@ -24,3 +25,90 @@ ufw enable
 
 # Create index.html
 echo "<h1>Hello World from C-DAC, Pune</h1>" > /var/www/html/index.html
+
+
+QUESTION 1
+sudo docker pull nginx
+nano index.html
+sudo docker run -d --name dockerrrr -p 8081:80 nginx
+sudo docker cp index.html dockerrrr:/usr/share/nginx/html/index.html
+
+QUESTION 2
+sudo docker run -it --name ubuntucont ubuntu:latest
+root@cf7ca6a9073d:/# echo "welcome from ubuntu " > /etc/motd
+root@cf7ca6a9073d:/# cat /etc/motd
+welcome from ubuntu 
+
+QUESTION 3 
+sudo docker run -it python:latest python3
+# Use the official readymade Python image
+FROM python:3.12-slim
+# Set the working directory inside the container
+WORKDIR /app
+# Copy dependency list and install them
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+# Copy the rest of your application code
+COPY . .
+# Command to run your application
+CMD ["python", "main.py"]
+
+QUESTION 4 
+sudo docker rm -f my-mysql
+sudo docker run --name my-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+
+qQUESTION 1
+cd ~
+mkdir hello-flask
+cd hello-flask
+nano app.py
+from flask import Flask
+app = Flask(__name__)
+@app.route("/")
+def hello():
+    return "Hello Python, Hello Flask from Docker!"
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+echo "flask" > requirements.txt
+nano Dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+EXPOSE 5000
+CMD ["python", "app.py"]
+sudo docker build -t my-flask-app .
+sudo docker run -d -p 5000:5000 --name flask-container my-flask-app
+http://localhost:5000.
+
+
+
+
+
+cloud file S3
+import json
+import logging
+import boto3
+
+# Initialize logging
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+def lambda_handler(event, context):
+    # Log the raw event
+    logger.info("Event: " + json.dumps(event))
+    
+    # Process each record within the event
+    for record in event['Records']:
+        # Extract the bucket name and file key from the event
+        bucket_name = record['s3']['bucket']['name']
+        file_key = record['s3']['object']['key']
+        
+        # Log the bucket name and file key to CloudWatch
+        logger.info(f"New file uploaded: {file_key} in bucket {bucket_name}")
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Processed S3 upload event successfully!')
+    }
